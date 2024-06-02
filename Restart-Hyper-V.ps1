@@ -5,8 +5,8 @@
         Write-Host "Shutting down" $virtualMachine;
         Stop-VM -Name $virtualMachine;
     }
-    Write-Host "Waiting for 2 minutes...";
-    Start-Sleep -Seconds 120;
+    Write-Host "Waiting for 1 minute...";
+    Start-Sleep -Seconds 60;
     foreach ($virtualMachine in $listOfVirtualMachines) {
         $statusOfVirtualMachine = Get-VM -Name $virtualMachine | Select-Object -ExpandProperty State
         Write-Host "Status of" $virtualMachine ":" $statusOfVirtualMachine;
