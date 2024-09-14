@@ -1,13 +1,22 @@
 @echo off
 chcp 65001 > nul 2>&1
-set /p location=Enter a directory where ips.txt and log.txt files will be located:
-cd %location%
-set /p choice=Enter 0 if you use ips.txt. Enter 1 if you want to enter ips manually:
-if "%choice%"=="0" (
+set /p location=Enter a directory where ips.txt and log.txt files will be located: 2>nul
+if "%location%"=="" (
+  echo.
+  echo No directory was specified. Exiting...
+  timeout /t 3
+  exit
+)
+cd /d %location%
+echo Select an option:
+echo If you have an ips.txt file with ips to check, enter [1]
+echo If you want to enter ips manually, enter [2]
+choice /c 12 /m "Your decision:"  
+if %errorlevel%==1 (
   if exist ips.txt (
     goto parse
   ) else (
-      echo No ips.txt file is found! Please create ips.txt file or select manual input option && exit
+      echo No ips.txt file is found! Please create ips.txt file or select manual input option && timeout /t 10 && exit
     )
 )
 @echo Enter values (one per line), then type "done" on a blank line to finish:
